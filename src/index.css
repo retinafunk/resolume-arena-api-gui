@@ -1,31 +1,35 @@
 body {
-    font: 14px "Century Gothic", Futura, sans-serif;
-    margin: 20px;
-    cursor: default;
+    background-color: #1C1C1C;
+    color: white;
+    font-family: Noto Sans, sans-serif;
 }
 
 .grid {
+    margin: 2em;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto;
+    grid-column-gap: 1.5em;
+    grid-row-gap: 3em;
 }
 
-span.label {
-    display: inline-block;
-    width: 150px;
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
 }
 
-.clip {
-    background-color: #ff0000ff
-}
-
-#controls {
-    display: flex;
-}
-
-#controls > div {
-    width: 50%
-}
-
-#controls > div + div {
-    margin-left: 5px;
+.title {
+    background-color: #343434;
+    text-align: center;
+    font-size: 13px;
+    border-radius: 0 0 5px 5px;
+    height: 1.75em;
+    margin-top: -0.25em;
+    padding-top: 0.2em;
 }
 
 
+.label {
+    background-color: white;
+}

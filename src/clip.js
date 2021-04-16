@@ -40,19 +40,14 @@ class Clip extends React.Component {
     render() {
         return (
             <div className="clip">
-                <p>{this.props.name.value}</p>
-                <img
+                <img className="thumbnail"
                     src={this.props.src}
                     onMouseDown={this.props.connect_down}
                     onMouseUp={this.props.connect_up}
                     alt={this.props.name.value}
                 />                
-
-            {this.state.selected &&
-                <p>selected</p>
-            }                
+                <div className="title">{this.props.name.value}</div>
             </div>
-
         )
     }
 }

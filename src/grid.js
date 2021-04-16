@@ -123,9 +123,7 @@ class Grid extends React.Component {
           return (
               <React.Fragment>
                   <div className="grid">
-                      <div className="clips">
-                          {clips}
-                      </div>
+                  {clips}
                   </div>
               </React.Fragment>
           );
