@@ -19,7 +19,7 @@ body {
     background-color: #000;
 }
 
-.title {
+#title {
     background-color: #343434;
     text-align: center;
     font-size: 13px;
@@ -29,6 +29,9 @@ body {
     padding-top: 0.2em;
 }
 
+.selected {
+    background-color: #AAAA34 !important;
+}
 
 .label {
     background-color: white;
