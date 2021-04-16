@@ -5,15 +5,14 @@ class Color extends React.Component {
 
     render() {
         return (
-            <div className="color" style={{backgroundColor: `${this.props.value}`}}>
-            <p onMouseDown={this.props.select}>
-              {this.props.id}
-            </p>
+            <div className="filter-container">
+            <div className="color" style={{backgroundColor: `${this.props.value}`}} onMouseDown={this.props.select}>
 
             {this.props.selected &&
                 <p>selected</p>
             }                 
             </div>
+        </div>
         )
     }
 }
