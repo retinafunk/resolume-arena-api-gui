@@ -91,7 +91,7 @@ class Grid extends React.Component {
           for (let c=0;c<this.state.layers[i].clips.length;++c) 
           {
               let clip = this.state.layers[i].clips[c];
-              //if (clip.name.length > 0)
+              if (clip.name.value.length > 0)
                 all_clips.push(clip);
           }
         }
