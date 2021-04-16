@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Composition from './composition.js'
+import Grid from './grid.js'
 import './index.css';
 
 // ========================================
@@ -19,6 +19,6 @@ const host = get_option(location.hostname, process.env.REACT_APP_HOST, '127.0.0.
 const port = parseInt(get_option(location.port, process.env.REACT_APP_PORT, 8080), 10);
 
 ReactDOM.render(
-    <Composition host={host} port={port} />,
+    <Grid host={host} port={port} />,
     document.getElementById('grid')
 );
