@@ -1,0 +1,214 @@
+body {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin: 20px;
+    cursor: default;
+}
+
+.composition {
+}
+
+.layer {
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid #f0f0f0;
+    background-color: #fcfcfc;
+    padding: 5px;
+    margin-bottom: 5px;
+    transition: all .5s;
+    clear: left;
+}
+
+.layer:hover {
+    border: 1px solid #e0e0e0;
+}
+
+.layer.selected {
+    border: 1px solid #e0e0e0;
+    background-color: #f0f0f0;
+}
+
+.layer.selected:hover {
+    border: 1px solid #d0d0d0;
+}
+
+.layer > div {
+    display: inline-block;
+    height: 90px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, .05);
+    margin-right: 5px;
+    overflow: hidden;
+}
+
+.layer > .control {
+    width: 250px;
+    overflow: ellipsis;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.layer > .clip {
+    width: 90px;
+}
+
+.layer > .clip img {
+    width: 90px;
+}
+
+.layer > .clip span {
+    display: inline-block;
+    width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.columns {
+    height: 30px;
+    padding-left: 270px;
+}
+
+.columns > div {
+    display: inline-block;
+    width: 90px;
+    text-align: center;
+    margin-right: 5px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, .05);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.columns > div.connected {
+    background-color: #d0d0d0;
+}
+
+span.parameter input {
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+span.parameter input:focus {
+    background-color: white;
+}
+
+div.effects .title {
+    background-color: #e0e0e0;
+    padding: 5px;
+    margin-top: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+div.effects .content {
+    padding: 5px;
+    background-color: #f0f0f0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+span.label {
+    display: inline-block;
+    width: 150px;
+}
+
+.decks {
+    height: 30px;
+    padding-left: 270px;
+}
+
+.decks > div {
+    display: inline-block;
+    width: 90px;
+    text-align: center;
+    margin-right: 5px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, .05);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.decks > div.selected {
+    background-color: #d0d0d0;
+}
+
+.arrow {
+    width: 0px;
+    height: 0px;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.arrow.down {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid black;
+    position: relative;
+    top: -2px;
+}
+
+.arrow.right {
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid black;
+}
+
+#controls {
+    display: flex;
+}
+
+#controls > div {
+    width: 50%
+}
+
+#controls > div + div {
+    margin-left: 5px;
+}
+
+.context-menu {
+    position: absolute;
+    display: inline-block;
+    background-color: white;
+    box-shadow: 3px 3px 3px #cccccc;
+    border: 1px solid black;
+    padding: 3px;
+    width: 250px;
+}
+
+.context-menu .label {
+    color: gray;
+}
+
+.context-menu .option {
+    padding: 2px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.context-menu > .option:after {
+    content: '▸';
+    position: absolute;
+    right: 4px;
+}
+
+.context-menu .option.selected:before {
+    content: '✓';
+    position: absolute;
+    left: 4px;
+}
+
+.context-menu .option:hover {
+    background-color: #dedede;
+}
+
+.context-menu .sub-menu {
+    position: absolute;
+    display: inline-block;
+    background-color: white;
+    box-shadow: 3px 3px 3px #cccccc;
+    border: 1px solid black;
+    padding: 3px;
+    top: 0px;
+    left: 250px;
+    width: 250px;
+}
