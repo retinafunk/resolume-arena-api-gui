@@ -85,10 +85,18 @@ class Grid extends React.Component {
     render() {
 
 
-        //let clips_ = this.state.layers.length > 0 ? this.state.layers[0].clips : null;
-        let layer = this.state.layers.length > 0 ? this.state.layers[0] : null;
+        let all_clips = [];
+        for (let i=0;i<this.state.layers.length;++i)
+        {
+          for (let c=0;c<this.state.layers[i].clips.length;++c) 
+          {
+              let clip = this.state.layers[i].clips[c];
+              //if (clip.name.length > 0)
+                all_clips.push(clip);
+          }
+        }
 
-        if (layer == null)
+        if (all_clips.length == 0)
         {
           return (
               <React.Fragment>
@@ -98,7 +106,7 @@ class Grid extends React.Component {
         }
         else
         {
-          const clips = layer.clips.map((clip) =>
+          const clips = all_clips.map((clip) =>
           <Clip
               id={clip.id}
               key={clip.id}
