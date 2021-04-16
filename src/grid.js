@@ -149,13 +149,11 @@ class Grid extends React.Component {
 
         return (
             <React.Fragment>
+                <div className="colors">
+                   {colors}
+                </div>
                 <div className="grid">
-                    <div className="colors">
-                      {colors}
-                    </div>
-                    <div className="clips">
-                        {clips}
-                    </div>
+                  {clips}
                 </div>
             </React.Fragment>
         );
