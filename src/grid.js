@@ -5,13 +5,6 @@ import Color from './color.js'
 import React from 'react'
 import PropTypes from 'prop-types';
 
-class ColorItem {
-  constructor(id, value) {
-    this.id = id;
-    this.value = value;
-  }
-}
-
 /**
   * Component rendering the entire composition
   */
@@ -29,12 +22,6 @@ class Grid extends React.Component {
             colors: [],
             layers: []
         };
-        this.state.colors.push(new ColorItem("1", "#4E4E4E"));
-        this.state.colors.push(new ColorItem("2", "#C35839"));
-        this.state.colors.push(new ColorItem("3", "#81B035"));
-        this.state.colors.push(new ColorItem("4", "#00B285"));
-        this.state.colors.push(new ColorItem("5", "#0077AF"));
-        this.state.colors.push(new ColorItem("6", "#C22596"));
     }
 
     /**
@@ -49,16 +36,39 @@ class Grid extends React.Component {
         }
     }
 
+    /**
+      * set the active color filter
+      *
+      * @param  id          The id of the color to filter on
+      */
     set_color(id)
     {
         this.setState({
            'active_color': id
         });
     }
+    /**
+      * checks if the given color id is the active one
+      *
+      * @param  id          The id of the color to check
+      */
 
     is_active_color(id)
     {
       return this.state.active_color === id;
+    }
+
+
+    init()
+    {
+        // this.transport.send_message({
+        //     action:     "trigger",
+        //     parameter:  `/composition/clearall`,
+        //     value:      down,
+        // });
+
+
+
     }
     /**
       * Get the URI to show a given clip
@@ -108,6 +118,15 @@ class Grid extends React.Component {
       */
     render() {
 
+        /* create array of color filter options */
+        let all_colors = [];
+        for (let i=0;i<6;++i)
+        {
+          all_colors[i] = {
+             "id": String(i+1),
+             "count": 0
+          };
+        }
 
         let all_clips = [];
         for (let i=0;i<this.state.layers.length;++i)
@@ -116,18 +135,20 @@ class Grid extends React.Component {
           {
               let clip = this.state.layers[i].clips[c];
               if (clip.name.value.length > 0)
-              {                  
+              {   
+                  all_colors[0].count++;     
+                  all_colors[clip.colorid.index].count++;
                   if (this.state.active_color === "1" || clip.colorid.value === this.state.active_color)
                     all_clips.push(clip);
               }
           }
         }
 
-        const colors = this.state.colors.map((color) =>
+        const colors = all_colors.map((color) =>
         <Color
-            id={color.id}
             key={color.id}
-            value={color.value}            
+            id={color.id}
+            count={color.count}        
             selected={this.is_active_color(color.id)}
             select={() => this.set_color(color.id)}
         />
@@ -143,6 +164,7 @@ class Grid extends React.Component {
             connect_up={() => this.connect_clip(clip.id, false)}
             select={() => this.select_clip(clip.id)}
             selected={clip.selected}
+            connected={clip.connected}
             parameters={this.parameters}
         />      
         );

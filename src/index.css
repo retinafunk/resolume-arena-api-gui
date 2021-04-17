@@ -21,6 +21,17 @@ body {
     background-color: #000;
 }
 
+#clip
+{
+
+}
+
+.connected {
+    border-style: solid;
+    border-width: 3px;
+    border-color: white;
+}
+
 #title {
     background-color: #343434;
     text-align: center;
@@ -51,9 +62,28 @@ body {
     display: flex;
 }
 
-.color {
+#filter {
     width: 35px;
     height: 35px;
     margin: 5px;
     border-radius: 2px;
+}
+
+.clr1 {
+    background-color: #4E4E4E;
+}
+.clr2 {
+    background-color: #C35839;
+}
+.clr3 {
+    background-color: #81B035;
+}
+.clr4 {
+    background-color: #00B285;
+}
+.clr5 {
+    background-color: #0077AF;
+}
+.clr6 {
+    background-color: #0077AF;
 }

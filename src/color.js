@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 
 class Color extends React.Component {
 
+
     render() {
+        
+        var cln = "clr" + this.props.id;
+
         return (
             <div className="filter-container">
-            <div className="color" style={{backgroundColor: `${this.props.value}`}} onMouseDown={this.props.select}>
-
+            <div id="filter" className={cln} onMouseDown={this.props.select}>
+            {this.props.count}
             {this.props.selected &&
-                <p>selected</p>
+                <div>#</div>
             }                 
             </div>
         </div>
@@ -21,7 +25,8 @@ class Color extends React.Component {
   * Property declaration for Clip component
   */
 Color.propTypes = {
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired,
 }
 
 export default Color;
