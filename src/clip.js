@@ -38,8 +38,11 @@ class Clip extends React.Component {
     }
 
     render() {
+
+        var connected = this.props.connected.index >= 3;
+
         return (
-            <div id="clip" className={this.props.connected.index >= 3 ? 'connected' : ''}>
+            <div id="clip" className={connected ? 'connected' : ''}>
                 <img className="thumbnail"
                     src={this.props.src}
                     onMouseDown={this.props.connect_down}
