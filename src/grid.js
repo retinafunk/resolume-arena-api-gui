@@ -58,18 +58,6 @@ class Grid extends React.Component {
       return this.state.active_color === id;
     }
 
-
-    init()
-    {
-        // this.transport.send_message({
-        //     action:     "trigger",
-        //     parameter:  `/composition/clearall`,
-        //     value:      down,
-        // });
-
-
-
-    }
     /**
       * Get the URI to show a given clip
       *
@@ -134,7 +122,13 @@ class Grid extends React.Component {
           for (let c=0;c<this.state.layers[i].clips.length;++c) 
           {
               let clip = this.state.layers[i].clips[c];
-              if (clip.name.value.length > 0)
+              
+              /**
+                * Connected has 5 possible states 
+                * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
+                */
+              var empty = clip.connected.index == 0;
+              if (!empty)
               {   
                   all_colors[0].count++;     
                   all_colors[clip.colorid.index].count++;
