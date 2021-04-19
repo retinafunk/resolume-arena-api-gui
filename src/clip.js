@@ -38,7 +38,10 @@ class Clip extends React.Component {
     }
 
     render() {
-
+        /**
+          * Connected has 5 possible states 
+          * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
+          */
         var connected = this.props.connected.index >= 3;
 
         return (
