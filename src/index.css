@@ -27,9 +27,8 @@ body {
 }
 
 .connected {
-    border-style: solid;
-    border-width: 3px;
-    border-color: white;
+    outline: 4px solid #A1FCD5;
+    outline-offset: -4px;
 }
 
 #title {
@@ -38,12 +37,13 @@ body {
     font-size: 13px;
     border-radius: 0 0 5px 5px;
     height: 1.75em;
-    margin-top: -0.25em;
+    margin-top: -0.5em;
     padding-top: 0.2em;
 }
 
 .selected {
-    background-color: #AAAA34 !important;
+    background-color: #A1FCD5 !important;
+    color: #1C1C1C !important;
 }
 
 .label {
@@ -69,6 +69,15 @@ body {
     border-radius: 2px;
 }
 
+#filter-selected {
+    width: 40px;
+    height: 40px;
+    border: #A1FCD5 2px solid;
+    border-radius: 2px;
+    margin-top: -26px;
+    margin-left: -5px;
+}
+
 .clr1 {
     background-color: #4E4E4E;
 }
@@ -85,5 +94,9 @@ body {
     background-color: #0077AF;
 }
 .clr6 {
-    background-color: #0077AF;
+    background-color: #C22596;
+}
+
+.clr1, .clr2, .clr3, .clr4, .clr5, .clr6 {
+        text-align: center;
 }

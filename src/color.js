@@ -13,7 +13,7 @@ class Color extends React.Component {
             <div id="filter" className={cln} onMouseDown={this.props.select}>
             {this.props.count}
             {this.props.selected &&
-                <div>#</div>
+                <div id="filter-selected"></div>
             }                 
             </div>
         </div>
