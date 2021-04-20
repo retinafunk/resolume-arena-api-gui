@@ -7,8 +7,8 @@ body {
 .grid {
     margin: 2em;
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto;
-    grid-template-rows: auto auto auto auto auto auto;
+    grid-template-columns: repeat(8, auto);
+    grid-template-rows: repeat(6, auto);
     grid-column-gap: 1.5em;
     grid-row-gap: 3em;
 }
@@ -100,3 +100,20 @@ body {
 .clr1, .clr2, .clr3, .clr4, .clr5, .clr6 {
         text-align: center;
 }
+
+
+
+
+/** Safari Query
+
+
+@media not all and (min-resolution:.001dpcm) { 
+    @media {
+        .selected { 
+            outline: 4px solid #A1FCD5;
+            outline-offset: -4px;
+                }
+    }
+
+    
+} */
