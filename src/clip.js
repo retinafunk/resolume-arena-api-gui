@@ -45,15 +45,18 @@ class Clip extends React.Component {
         var connected = this.props.connected.index >= 3;
 
         return (
-            <div id="clip" className={connected ? 'connected' : ''}>
-                <img className="thumbnail"
-                    src={this.props.src}
-                    onMouseDown={this.props.connect_down}
-                    onMouseUp={this.props.connect_up}
-                    alt={this.props.name.value}
-                />                
-                <div id="title" className={this.props.selected.value ? 'selected' : ''} onMouseDown={this.props.select}>{this.props.name.value}</div>
+            <div>
+              <div id="clip" className={connected ? 'connected' : ''}>
+                  <img className="thumbnail"
+                      src={this.props.src}
+                      onMouseDown={this.props.connect_down}
+                      onMouseUp={this.props.connect_up}
+                      alt={this.props.name.value}
+                  />                
+              </div>
+              <div id="title" className={this.props.selected.value ? 'selected' : ''} onMouseDown={this.props.select}>{this.props.name.value}</div>                
             </div>
+            
         )
     }
 }

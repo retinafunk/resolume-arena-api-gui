@@ -13,17 +13,14 @@ body {
     grid-row-gap: 3em;
 }
 
-
-
 .thumbnail {
     width: 100%;
     height: 100%;
-    background-color: #000;
 }
 
 #clip
 {
-
+    background-color: #000;
 }
 
 .connected {
@@ -37,7 +34,6 @@ body {
     font-size: 13px;
     border-radius: 0 0 5px 5px;
     height: 1.75em;
-    margin-top: -0.5em;
     padding-top: 0.2em;
 }
 
@@ -70,12 +66,13 @@ body {
 }
 
 #filter-selected {
-    width: 40px;
-    height: 40px;
     border: #A1FCD5 2px solid;
     border-radius: 2px;
-    margin-top: -26px;
-    margin-left: -5px;
+}
+
+#filter-unselected {
+    border: #00000000 2px solid;
+    border-radius: 2px;
 }
 
 .clr1 {
@@ -100,20 +97,3 @@ body {
 .clr1, .clr2, .clr3, .clr4, .clr5, .clr6 {
         text-align: center;
 }
-
-
-
-
-/** Safari Query
-
-
-@media not all and (min-resolution:.001dpcm) { 
-    @media {
-        .selected { 
-            outline: 4px solid #A1FCD5;
-            outline-offset: -4px;
-                }
-    }
-
-    
-} */

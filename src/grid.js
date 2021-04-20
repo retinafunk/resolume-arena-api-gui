@@ -166,7 +166,9 @@ class Grid extends React.Component {
         return (
             <React.Fragment>
                 <div className="colors">
-                   {colors}
+                  <div className="filter-container">
+                    {colors}
+                   </div>
                 </div>
                 <div className="grid">
                   {clips}
