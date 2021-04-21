@@ -7,7 +7,8 @@ body {
 .grid {
     margin: 2em;
     display: grid;
-    grid-template-columns: repeat(8, auto);
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
     grid-template-rows: repeat(6, auto);
     grid-column-gap: 1.5em;
     grid-row-gap: 3em;
@@ -97,50 +98,3 @@ body {
 .clr1, .clr2, .clr3, .clr4, .clr5, .clr6 {
         text-align: center;
 }
-
-
-/* Responsive Media Query */
-
-@media only screen and (max-width: 1080px) {
-    .grid {
-        margin: 2em;
-        display: grid;
-        grid-template-columns: repeat(6, auto);
-        grid-template-rows: repeat(6, auto);
-        grid-column-gap: 1.5em;
-        grid-row-gap: 3em;
-    }
-  }
-
-  @media only screen and (max-width: 800px) {
-    .grid {
-        margin: 2em;
-        display: grid;
-        grid-template-columns: repeat(4, auto);
-        grid-template-rows: repeat(6, auto);
-        grid-column-gap: 1.5em;
-        grid-row-gap: 3em;
-    }
-  }
-
-  @media only screen and (max-width: 500px) {
-    .grid {
-        margin: 2em;
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-        grid-template-rows: repeat(6, auto);
-        grid-column-gap: 1.5em;
-        grid-row-gap: 3em;
-    }
-  }
-
-  @media only screen and (min-width: 1900px) {
-    .grid {
-        margin: 2em;
-        display: grid;
-        grid-template-columns: repeat(10, auto);
-        grid-template-rows: repeat(6, auto);
-        grid-column-gap: 1.5em;
-        grid-row-gap: 3em;
-    }
-  }
