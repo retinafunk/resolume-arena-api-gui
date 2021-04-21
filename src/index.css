@@ -8,10 +8,8 @@ body {
     margin: 2em;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-
-    grid-template-rows: repeat(6, auto);
     grid-column-gap: 1.5em;
-    grid-row-gap: 3em;
+    grid-row-gap: 2.5em;
 }
 
 .thumbnail {
