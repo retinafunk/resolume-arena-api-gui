@@ -42,8 +42,8 @@ class Clip extends React.Component {
           * Connected has 5 possible states 
           * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
           */
-        var connected = this.props.connected.index >= 3;
-
+        let connected = this.props.connected.index >= 3;
+        let name = this.props.name.value.length > 23 ? this.props.name.value.substring(0,22) + "..." : this.props.name.value;
         return (
             <div>
               <div id="clip" className={connected ? 'connected' : ''}>
@@ -54,7 +54,9 @@ class Clip extends React.Component {
                       alt={this.props.name.value}
                   />                
               </div>
-              <div id="title" className={this.props.selected.value ? 'selected' : ''} onMouseDown={this.props.select}>{this.props.name.value}</div>                
+              <div id="title" className={this.props.selected.value ? 'selected' : ''} onMouseDown={this.props.select}>
+                {name}
+              </div>                
             </div>
             
         )
