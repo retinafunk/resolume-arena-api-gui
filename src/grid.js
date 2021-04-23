@@ -127,7 +127,7 @@ class Grid extends React.Component {
                 * Connected has 5 possible states 
                 * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
                 */
-              var empty = clip.connected.index == 0;
+              var empty = clip.connected.index === 0;
               if (!empty)
               {   
                   all_colors[0].count++;     
