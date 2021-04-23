@@ -45,16 +45,16 @@ class Clip extends React.Component {
         let connected = this.props.connected.index >= 3;
         let name = this.props.name.value.length > 23 ? this.props.name.value.substring(0,22) + "..." : this.props.name.value;
         return (
-            <div>
-              <div id="clip" className={connected ? 'connected' : ''}>
+            <div>              
+              <div className={`clip ${connected ? 'connected' : ''}`}>
                   <img className="thumbnail"
                       src={this.props.src}
                       onMouseDown={this.props.connect_down}
                       onMouseUp={this.props.connect_up}
                       alt={this.props.name.value}
                   />                
-              </div>
-              <div id="title" className={this.props.selected.value ? 'selected' : ''} onMouseDown={this.props.select}>
+              </div>              
+              <div className={`title ${this.props.selected.value ? 'selected' : ''}`} onMouseDown={this.props.select}>
                 {name}
               </div>                
             </div>

@@ -7,8 +7,8 @@ class Color extends React.Component {
         let cln = "clr" + this.props.id;
         let idn = this.props.selected ? "filter-selected" : "filter-unselected";
         return (
-            <div id={idn}>
-                <div id="filter" className={cln} onMouseDown={this.props.select}>
+            <div className={idn}>                
+                <div className="filter {cln}" onMouseDown={this.props.select}>
                     {this.props.count}            
                 </div>
             </div>

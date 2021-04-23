@@ -17,7 +17,7 @@ body {
     height: 100%;
 }
 
-#clip
+.clip
 {
     background-color: #000;
 }
@@ -27,7 +27,7 @@ body {
     outline-offset: -4px;
 }
 
-#title {
+.title {
     background-color: #343434;
     text-align: center;
     font-size:80%;
@@ -64,12 +64,12 @@ body {
     border-radius: 2px;
 }
 
-#filter-selected {
+.filter-selected {
     border: #A1FCD5 2px solid;
     border-radius: 2px;
 }
 
-#filter-unselected {
+.filter-unselected {
     border: #00000000 2px solid;
     border-radius: 2px;
 }
