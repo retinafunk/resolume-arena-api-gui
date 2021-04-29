@@ -1,0 +1,51 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - npm install
+
+build:
+  tags:
+    - docker
+  stage: build
+  script:
+    - npm run build
+  except:
+    - master
+    - tags
+
+bundle:
+  variables:
+    PUBLIC_URL: "/api/docs/triggered" # the path our built-in arena webserver will serve this as
+  tags:
+    - docker
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build
+  only:
+    - master
+    - tags
+
+pages:
+  variables:
+    PUBLIC_URL: "/${CI_PROJECT_NAME}" # slash is important
+  tags:
+    - docker
+  stage: build
+  script:
+    - npm run build
+    - rm -rf public
+    - mv build public
+    - cp public/index.html public/404.html
+  artifacts:
+    paths:
+      - public # this is what gitlab pages expects
+  only:
+    - master
+    - tags
