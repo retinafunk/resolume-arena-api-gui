@@ -121,8 +121,7 @@ class Grid extends React.Component {
         {
           for (let c=0;c<this.state.layers[i].clips.length;++c) 
           {
-              let clip = this.state.layers[i].clips[c];
-              
+              let clip = this.state.layers[i].clips[c];              
               /**
                 * Connected has 5 possible states 
                 * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
@@ -147,6 +146,7 @@ class Grid extends React.Component {
             select={() => this.set_color(color.id)}
         />
         );
+        
 
         const clips = all_clips.map((clip) =>
         <Clip
@@ -173,6 +173,11 @@ class Grid extends React.Component {
                 <div className="grid">
                   {clips}
                 </div>
+                {all_clips.length == 0 &&
+                  <div className="message">
+                    <h1>No clips assigned</h1>                  
+                  </div>
+                }
             </React.Fragment>
         );
         

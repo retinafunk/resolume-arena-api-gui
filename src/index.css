@@ -7,9 +7,9 @@ body {
 .grid {
     margin: 2em;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 0.25fr));
     grid-column-gap: 1.5em;
-    grid-row-gap: 2.5em;
+    grid-row-gap: 2em;
 }
 
 .thumbnail {
@@ -32,8 +32,9 @@ body {
     text-align: center;
     font-size:80%;
     border-radius: 0 0 5px 5px;
-    height: 1.75em;
-    padding-top: 0.2em;
+    height: 2em;
+    padding-top: 0.5em;
+    font-size: 1em;
 }
 
 .selected {
@@ -75,7 +76,7 @@ body {
 }
 
 .clr1 {
-    background-color: #4E4E4E;
+    background-color: #4E4E4E;    
 }
 .clr2 {
     background-color: #C35839;
@@ -94,5 +95,15 @@ body {
 }
 
 .clr1, .clr2, .clr3, .clr4, .clr5, .clr6 {
-        text-align: center;
+    text-align: center;
+}
+.count {
+    padding-top: 6px;
+    opacity: 0.7;
+}
+
+.message {
+    text-align: center;
+    margin-top: 15%;
+    opacity: 0.4;
 }
