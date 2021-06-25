@@ -147,7 +147,7 @@ class Grid extends React.Component {
                 </div>
                 {filtered_clips.length == 0 &&
                   <div className="message">
-                    <h1>No clips assigned</h1>                  
+                    <h1>Assign the color to a clip in Arena/Avenue and it will be shown here.</h1>                  
                   </div>
                 }
             </React.Fragment>
