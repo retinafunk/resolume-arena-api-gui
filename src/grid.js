@@ -1,26 +1,20 @@
 import Transport from './transport.js'
 import ParameterContainer from './parameter_container.js'
 import Clip from './clip.js'
-import Color from './color.js'
+import Colors from './colors.js'
 import React from 'react'
 import PropTypes from 'prop-types';
 
-/**
-  * Component rendering the entire composition
-  */
 class Grid extends React.Component {
-    /**
-      * Constructor
-      */
+
     constructor(props) {
         super(props);
         this.transport = new Transport(props.host, props.port);
         this.parameters = new ParameterContainer(this.transport);
         this.transport.on_message((message) => this.handle_message(message));
         this.state = {
-            active_color: "1",
-            colors: [],
-            layers: []
+            layers: [],
+            active_color: "1"
         };
     }
 
@@ -36,27 +30,6 @@ class Grid extends React.Component {
         }
     }
 
-    /**
-      * set the active color filter
-      *
-      * @param  id          The id of the color to filter on
-      */
-    set_color(id)
-    {
-        this.setState({
-           'active_color': id
-        });
-    }
-    /**
-      * checks if the given color id is the active one
-      *
-      * @param  id          The id of the color to check
-      */
-
-    is_active_color(id)
-    {
-      return this.state.active_color === id;
-    }
 
     /**
       * Get the URI to show a given clip
@@ -74,14 +47,11 @@ class Grid extends React.Component {
     }
 
     /**
-      * Connect a clip, possibly causing it to be displayed
+      * Connect a clip
       *
       * @param  id  The id of the clip to trigger
       */
     connect_clip(id, down) {
-        // TODO: fix this weirdness with toggling 'selected', we should
-        // find a better name for this parameter, because setting it to
-        // false will not stop it being selected.
         this.transport.send_message({
             action:     "trigger",
             parameter:  `/composition/clips/by-id/${id}/connect`,
@@ -90,7 +60,7 @@ class Grid extends React.Component {
     }
 
     /**
-      * Select a clip, triggering it for display
+      * Select a clip
       *
       * @param  id  The id of the clip to trigger
       */
@@ -102,53 +72,59 @@ class Grid extends React.Component {
     }
 
     /**
-      * Generate the component output
+      * Set active color filter
+      *
+      * @param  id  The id of the clip to trigger
       */
+    set_active_color(value) {
+        this.setState( {active_color: value });
+    }    
+
+    is_active_color(value) {
+        return this.state.active_color === value;
+    }
+
     render() {
 
-        /* create array of color filter options */
-        let all_colors = [];
-        for (let i=0;i<6;++i)
-        {
-          all_colors[i] = {
-             "id": String(i+1),
-             "count": 0
-          };
-        }
+        /* gather all clips that are not empty */
+        let active_clips = [];
 
-        let all_clips = [];
         for (let i=0;i<this.state.layers.length;++i)
         {
           for (let c=0;c<this.state.layers[i].clips.length;++c) 
           {
-              let clip = this.state.layers[i].clips[c];              
+              let clip = this.state.layers[i].clips[c];
               /**
-                * Connected has 5 possible states 
-                * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
-                */
-              var empty = clip.connected.index === 0;
-              if (!empty)
-              {   
-                  all_colors[0].count++;     
-                  all_colors[clip.colorid.index].count++;
-                  if (this.state.active_color === "1" || clip.colorid.value === this.state.active_color)
-                    all_clips.push(clip);
-              }
+               * Connected has 5 possible states 
+               * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
+              */
+              if (clip.connected.index !== 0)
+                active_clips.push(clip);
           }
         }
 
-        const colors = all_colors.map((color) =>
-        <Color
-            key={color.id}
-            id={color.id}
-            count={color.count}        
-            selected={this.is_active_color(color.id)}
-            select={() => this.set_color(color.id)}
+        /* Pass clips to Colors component, it will watch the colorid parameters of the individual clips 
+         * and report back when active color changes
+        */
+        const colors = (  
+        <Colors
+            key="Colors"
+            set_color={(value) => this.set_active_color(value)}
+            is_active_color={(value) => this.is_active_color(value)}
+            clips={active_clips}
         />
         );
         
+        /* Check all clips and see which ones match the current active color filter setting */
+        let filtered_clips = [];
+        for (let i=0;i<active_clips.length;++i)
+        {
+            let clip = active_clips[i];              
+            if (this.state.active_color === "1" || clip.colorid.value === this.state.active_color)
+                filtered_clips.push(clip);
+        }
 
-        const clips = all_clips.map((clip) =>
+        const clips = filtered_clips.map((clip) =>
         <Clip
             id={clip.id}
             key={clip.id}
@@ -165,15 +141,11 @@ class Grid extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="colors">
-                  <div className="filter-container">
-                    {colors}
-                   </div>
-                </div>
+                {colors}                   
                 <div className="grid">
                   {clips}
                 </div>
-                {all_clips.length == 0 &&
+                {filtered_clips.length == 0 &&
                   <div className="message">
                     <h1>No clips assigned</h1>                  
                   </div>
