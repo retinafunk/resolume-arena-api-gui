@@ -54,7 +54,7 @@ class Clip extends React.Component {
                       alt={this.props.name.value}
                   />                
               </div>              
-              <div className={`title ${this.props.selected.value ? 'selected' : ''}`} onMouseDown={this.props.select}>
+              <div className={`handle ${this.props.selected.value ? 'selected' : ''}`} onMouseDown={this.props.select}>
                 {name}
               </div>                
             </div>
