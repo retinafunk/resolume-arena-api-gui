@@ -107,12 +107,12 @@ class Grid extends React.Component {
          * and report back when active color changes
         */
         const colors = (  
-        <Colors
-            key="Colors"
-            set_color={(value) => this.set_active_color(value)}
-            is_active_color={(value) => this.is_active_color(value)}
-            clips={active_clips}
-        />
+          <Colors
+              key="Colors"
+              set_color={(value) => this.set_active_color(value)}
+              is_active_color={(value) => this.is_active_color(value)}
+              clips={active_clips}
+          />
         );
         
         /* Check all clips and see which ones match the current active color filter setting */
@@ -145,7 +145,7 @@ class Grid extends React.Component {
                 <div className="grid">
                   {clips}
                 </div>
-                {filtered_clips.length == 0 &&
+                {filtered_clips.length === 0 &&
                   <div className="message">
                     <h1>Assign the color to a clip in Arena/Avenue and it will be shown here.</h1>                  
                   </div>

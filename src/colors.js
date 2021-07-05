@@ -5,17 +5,20 @@ import Color from './color.js'
 class Colors extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = { 
             active_color: "1"
         };
 
-        this.on_update = (parameter) => {
-            this.setState({ });
+        this.on_update = (parameter) => {       
+            this.setState({  });
         };
+
     }
 
     componentDidMount() {
         /* Watch colorid of all clips */
+
         for (let i=0;i<this.props.clips.length;++i)
             this.props.parameters.register_monitor(this.props.clips[i].colorid.id, this.on_update, this.props.clips[i].colorid);
     }
@@ -73,7 +76,7 @@ class Colors extends React.Component {
   * Property declaration for Colors component
   */
 Colors.propTypes = {
-    clips: PropTypes.object.isRequired,
+    clips: PropTypes.array.isRequired,
 }
 
 export default Colors;
