@@ -62,7 +62,7 @@ class Grid extends React.Component {
     /**
       * Select a clip
       *
-      * @param  id  The id of the clip to trigger
+      * @param  id  The id of the clip to select
       */
     select_clip(id) {
         this.transport.send_message({
@@ -74,7 +74,7 @@ class Grid extends React.Component {
     /**
       * Set active color filter
       *
-      * @param  id  The id of the clip to trigger
+      * @param  value  The color to set as active color (filter)
       */
     set_active_color(value) {
         this.setState( {active_color: value });
@@ -125,18 +125,18 @@ class Grid extends React.Component {
         }
 
         const clips = filtered_clips.map((clip) =>
-        <Clip
-            id={clip.id}
-            key={clip.id}
-            name={clip.name}
-            src={this.clip_url(clip.id, clip.thumbnail.last_update)}
-            connect_down={() => this.connect_clip(clip.id, true)}
-            connect_up={() => this.connect_clip(clip.id, false)}
-            select={() => this.select_clip(clip.id)}
-            selected={clip.selected}
-            connected={clip.connected}
-            parameters={this.parameters}
-        />      
+          <Clip
+              id={clip.id}
+              key={clip.id}
+              name={clip.name}
+              src={this.clip_url(clip.id, clip.thumbnail.last_update)}
+              connect_down={() => this.connect_clip(clip.id, true)}
+              connect_up={() => this.connect_clip(clip.id, false)}
+              select={() => this.select_clip(clip.id)}
+              selected={clip.selected}
+              connected={clip.connected}
+              parameters={this.parameters}
+          />      
         );
 
         return (

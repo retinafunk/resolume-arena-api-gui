@@ -11,8 +11,7 @@ class Clip extends React.Component {
         this.state = { selected: props.selected.value };
 
         // the handler function for updates to the
-        // selected property - e.g. when a clip
-        // gets triggered by the user or autopilot
+        // selected property of a clip
         this.on_update = (parameter) => {
             // extract selection value
             const selected = parameter.value;
@@ -21,18 +20,10 @@ class Clip extends React.Component {
         };
     }
 
-    /**
-      * Handle the component being mounted into
-      * the browsers DOM
-      */
     componentDidMount() {
         this.props.parameters.register_monitor(this.props.selected.id, this.on_update, this.props.selected);
     }
 
-    /**
-      * Handle the component being unmounted from
-      * the browsers DOM
-      */
     componentWillUnmount() {
         this.props.parameters.unregister_monitor(this.props.selected.id, this.on_update);
     }
@@ -42,8 +33,8 @@ class Clip extends React.Component {
           * Connected has 5 possible states 
           * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
           */
-        let connected = this.props.connected.index >= 3;
-        let name = this.props.name.value.length > 23 ? this.props.name.value.substring(0,22) + "..." : this.props.name.value;
+        const connected = this.props.connected.index >= 3;
+        const name = this.props.name.value.length > 23 ? this.props.name.value.substring(0,22) + "..." : this.props.name.value;
         return (
             <div>              
               <div className={`clip ${connected ? 'connected' : ''}`}>

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 class Color extends React.Component {
 
     render() {        
-        let cln = "clr" + this.props.id;
-        let idn = this.props.selected ? "filter-selected" : "filter-unselected";
+        const cln = "clr" + this.props.id;
+        const idn = this.props.selected ? "filter-selected" : "filter-unselected";
         return (
             <div className={idn}>             
                 <div className={`filter ${cln}`} onMouseDown={this.props.select}>
