@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 /**
   * Component for rendering a clip, responds to clicks
-  * to activate the clip. Renders the clip name below.
-  */
+  * to trigger the clip.
+*/
 class Clip extends React.Component {
     constructor(props) {
         super(props);
@@ -62,7 +62,7 @@ Clip.propTypes = {
     select: PropTypes.func.isRequired,
     name: PropTypes.object.isRequired,
     id: PropTypes.number.isRequired,
-    parameters: PropTypes.object.isRequired,
+    parameters: PropTypes.object.isRequired
 }
 
 export default Clip;

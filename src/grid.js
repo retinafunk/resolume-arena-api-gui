@@ -86,24 +86,21 @@ class Grid extends React.Component {
 
     render() {
 
-        /* gather all clips that are not empty */
+        /* Gather all clips that are not empty */
         let active_clips = [];
 
-        for (let i=0;i<this.state.layers.length;++i)
-        {
-          for (let c=0;c<this.state.layers[i].clips.length;++c) 
-          {
-              let clip = this.state.layers[i].clips[c];
-              /**
-               * Connected has 5 possible states 
-               * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
-              */
-              if (clip.connected.index !== 0)
-                active_clips.push(clip);
+        for (let layer of this.state.layers) {
+          for (let clip of layer.clips) {
+            /**
+             * Connected has 5 possible states 
+             * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
+            */
+            if (clip.connected.index !== 0)
+            active_clips.push(clip);
           }
         }
 
-        /* Pass clips to Colors component, it will watch the colorid parameters of the individual clips 
+        /* Pass clips to Colors component, it will watch the colorid parameter of the individual clips 
          * and report back when active color changes
         */
         const colors = (  
@@ -117,11 +114,10 @@ class Grid extends React.Component {
         
         /* Check all clips and see which ones match the current active color filter setting */
         let filtered_clips = [];
-        for (let i=0;i<active_clips.length;++i)
-        {
-            let clip = active_clips[i];              
+        
+        for (let clip of active_clips) {
             if (this.state.active_color === "1" || clip.colorid.value === this.state.active_color)
-                filtered_clips.push(clip);
+              filtered_clips.push(clip);
         }
 
         const clips = filtered_clips.map((clip) =>
@@ -147,12 +143,11 @@ class Grid extends React.Component {
                 </div>
                 {filtered_clips.length === 0 &&
                   <div className="message">
-                    <h1>Assign the color to a clip in Arena/Avenue and it will be shown here.</h1>                  
+                    <h1>Assign the color to a clip in Arena / Avenue and it will be shown here.</h1>                  
                   </div>
                 }
             </React.Fragment>
-        );
-        
+        );        
     }
 }
 

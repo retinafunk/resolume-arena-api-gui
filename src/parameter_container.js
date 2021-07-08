@@ -8,7 +8,7 @@ class ParameterContainer
     /**
       * Constructor
       *
-      * @param  transport   The transport for communicating with arena
+      * @param  transport   The transport for communicating with Resolume Arena/Avenue
       */
     constructor(transport) {
         this.transport = transport;
