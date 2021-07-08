@@ -49,7 +49,7 @@ class Grid extends React.Component {
     /**
       * Connect a clip
       *
-      * @param  id  The id of the clip to trigger
+      * @param  id  The id of the clip to connect
       */
     connect_clip(id, down) {
         this.transport.send_message({
@@ -77,7 +77,7 @@ class Grid extends React.Component {
       * @param  value  The color to set as active color (filter)
       */
     set_active_color(value) {
-        this.setState( {active_color: value });
+        this.setState( { active_color: value });
     }    
 
     is_active_color(value) {
@@ -152,7 +152,7 @@ class Grid extends React.Component {
 }
 
 /**
-  * Property declaration for Composition component
+  * Property declaration for Grid component
   */
 Grid.propTypes = {
     host: PropTypes.string.isRequired,
