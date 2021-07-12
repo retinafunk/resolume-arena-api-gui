@@ -13,7 +13,7 @@ class Grid extends React.Component {
         this.parameters = new ParameterContainer(this.transport);
         this.transport.on_message((message) => this.handle_message(message));
         this.state = {
-            layers: [],
+            clips: [],
             active_color: "1"
         };
     }
@@ -26,7 +26,22 @@ class Grid extends React.Component {
     handle_message(message) {
         // TODO: properly check the type, right now it's only for param updates
         if (typeof message.type !== 'string') {
-            this.setState(message);
+            // extract the clips from the composition state
+            let clips = [];
+
+            for (const layer of message.layers) {
+                for (const clip of layer.clips) {
+                    /**
+                      * Connected has 5 possible states
+                      * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
+                      */
+                    if (clip.connected.index !== 0) {
+                        clips.push(clip);
+                    }
+                }
+            }
+
+            this.setState({ clips });
         }
     }
 
@@ -78,27 +93,38 @@ class Grid extends React.Component {
       */
     set_active_color(value) {
         this.setState( { active_color: value });
-    }    
+    }
+
+    /**
+     *  Handle clip color update
+     *
+     *  @param  clip    The updated clip data
+     */
+    set_clip_data(clip) {
+        this.setState(state => {
+            // find the old clip to update
+            const clips = state.clips;
+            const old = clips.find(old => old.id === clip.id);
+
+            // check whether we found a match (we should!)
+            if (old === undefined) {
+                console.log("Cannot find matching clip", clip);
+                return;
+            }
+
+            // update the found clip
+            old.colorid = clip.colorid;
+
+            // use the new clip data
+            return { clips };
+        });
+    }
 
     is_active_color(value) {
         return this.state.active_color === value;
     }
 
     render() {
-
-        /* Gather all clips that are not empty */
-        let active_clips = [];
-
-        for (let layer of this.state.layers) {
-          for (let clip of layer.clips) {
-            /**
-             * Connected has 5 possible states 
-             * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
-            */
-            if (clip.connected.index !== 0)
-            active_clips.push(clip);
-          }
-        }
 
         /* Pass clips to Colors component, it will watch the colorid parameter of the individual clips 
          * and report back when active color changes
@@ -107,15 +133,17 @@ class Grid extends React.Component {
           <Colors
               key="Colors"
               set_color={(value) => this.set_active_color(value)}
+              update_clip={clip => this.set_clip_data(clip)}
               is_active_color={(value) => this.is_active_color(value)}
-              clips={active_clips}
+              parameters={this.parameters}
+              clips={this.state.clips}
           />
         );
         
         /* Check all clips and see which ones match the current active color filter setting */
         let filtered_clips = [];
         
-        for (let clip of active_clips) {
+        for (let clip of this.state.clips) {
             if (this.state.active_color === "1" || clip.colorid.value === this.state.active_color)
               filtered_clips.push(clip);
         }

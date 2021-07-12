@@ -61,7 +61,7 @@ class Transport {
             this.ws.onmessage = (data) => {
                 try {
                     const message = JSON.parse(data.data);
-                    console.log('receiving message', message);
+                    // console.log('receiving message', message);
                     for (const listener of this.listeners) {
                         listener(message);
                     }
@@ -105,7 +105,7 @@ class Transport {
       * @param  message     The message to send
       */
     send_message(message) {
-        console.log('sending message', message);
+        // console.log('sending message', message);
         this.ws.send(JSON.stringify(message));
     }
 }
