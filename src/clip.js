@@ -1,4 +1,5 @@
 import React from 'react'
+import { ResolumeContext } from './resolume_provider.js'
 import PropTypes from 'prop-types';
 
 /**
@@ -21,11 +22,11 @@ class Clip extends React.Component {
     }
 
     componentDidMount() {
-        this.props.parameters.register_monitor(this.props.selected.id, this.on_update, this.props.selected);
+        this.context.parameters.register_monitor(this.props.selected.id, this.on_update, this.props.selected);
     }
 
     componentWillUnmount() {
-        this.props.parameters.unregister_monitor(this.props.selected.id, this.on_update);
+        this.context.parameters.unregister_monitor(this.props.selected.id, this.on_update);
     }
 
     render() {
@@ -55,6 +56,11 @@ class Clip extends React.Component {
 }
 
 /**
+ *  Declare the context type used
+ */
+Clip.contextType = ResolumeContext;
+
+/**
   * Property declaration for Clip component
   */
 Clip.propTypes = {
@@ -62,7 +68,6 @@ Clip.propTypes = {
     select: PropTypes.func.isRequired,
     name: PropTypes.object.isRequired,
     id: PropTypes.number.isRequired,
-    parameters: PropTypes.object.isRequired
 }
 
 export default Clip;

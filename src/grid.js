@@ -1,6 +1,6 @@
-import Transport from './transport.js'
-import ParameterContainer from './parameter_container.js'
-import Clip from './clip.js'
+import { ResolumeContext } from './resolume_provider.js'
+import ParameterMonitor from './parameter_monitor.js'
+import Clips from './clips.js'
 import Colors from './colors.js'
 import React from 'react'
 import PropTypes from 'prop-types';
@@ -9,42 +9,10 @@ class Grid extends React.Component {
 
     constructor(props) {
         super(props);
-        this.transport = new Transport(props.host, props.port);
-        this.parameters = new ParameterContainer(this.transport);
-        this.transport.on_message((message) => this.handle_message(message));
         this.state = {
-            clips: [],
             active_color: "1"
         };
     }
-
-    /**
-      * Handle incoming messages
-      *
-      * @param  message The message coming from the server
-      */
-    handle_message(message) {
-        // TODO: properly check the type, right now it's only for param updates
-        if (typeof message.type !== 'string') {
-            // extract the clips from the composition state
-            let clips = [];
-
-            for (const layer of message.layers) {
-                for (const clip of layer.clips) {
-                    /**
-                      * Connected has 5 possible states
-                      * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
-                      */
-                    if (clip.connected.index !== 0) {
-                        clips.push(clip);
-                    }
-                }
-            }
-
-            this.setState({ clips });
-        }
-    }
-
 
     /**
       * Get the URI to show a given clip
@@ -67,7 +35,7 @@ class Grid extends React.Component {
       * @param  id  The id of the clip to connect
       */
     connect_clip(id, down) {
-        this.transport.send_message({
+        this.context.transport.send_message({
             action:     "trigger",
             parameter:  `/composition/clips/by-id/${id}/connect`,
             value:      down,
@@ -80,7 +48,7 @@ class Grid extends React.Component {
       * @param  id  The id of the clip to select
       */
     select_clip(id) {
-        this.transport.send_message({
+        this.context.transport.send_message({
             action:     "trigger",
             parameter:  `/composition/clips/by-id/${id}/select`,
         });
@@ -95,89 +63,60 @@ class Grid extends React.Component {
         this.setState( { active_color: value });
     }
 
-    /**
-     *  Handle clip color update
-     *
-     *  @param  clip    The updated clip data
-     */
-    set_clip_data(clip) {
-        this.setState(state => {
-            // find the old clip to update
-            const clips = state.clips;
-            const old = clips.find(old => old.id === clip.id);
+    render() {
+        // convert composition state to an array of clips that are
+        // filled with something (an audio- and/or video stream)
+        const clips = (() => {
+            // extract the clips from the composition state
+            let clips = [];
 
-            // check whether we found a match (we should!)
-            if (old === undefined) {
-                console.log("Cannot find matching clip", clip);
-                return;
+            for (const layer of this.context.composition.layers) {
+                for (const clip of layer.clips) {
+                    /**
+                      * Connected has 5 possible states
+                      * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
+                      */
+                    if (clip.connected.index !== 0) {
+                        clips.push(clip);
+                    }
+                }
             }
 
-            // update the found clip
-            old.colorid = clip.colorid;
+            return clips;
+        })();
 
-            // use the new clip data
-            return { clips };
-        });
-    }
-
-    is_active_color(value) {
-        return this.state.active_color === value;
-    }
-
-    render() {
-
-        /* Pass clips to Colors component, it will watch the colorid parameter of the individual clips 
-         * and report back when active color changes
-        */
-        const colors = (  
-          <Colors
-              key="Colors"
-              set_color={(value) => this.set_active_color(value)}
-              update_clip={clip => this.set_clip_data(clip)}
-              is_active_color={(value) => this.is_active_color(value)}
-              parameters={this.parameters}
-              clips={this.state.clips}
-          />
-        );
-        
-        /* Check all clips and see which ones match the current active color filter setting */
-        let filtered_clips = [];
-        
-        for (let clip of this.state.clips) {
-            if (this.state.active_color === "1" || clip.colorid.value === this.state.active_color)
-              filtered_clips.push(clip);
-        }
-
-        const clips = filtered_clips.map((clip) =>
-          <Clip
-              id={clip.id}
-              key={clip.id}
-              name={clip.name}
-              src={this.clip_url(clip.id, clip.thumbnail.last_update)}
-              connect_down={() => this.connect_clip(clip.id, true)}
-              connect_up={() => this.connect_clip(clip.id, false)}
-              select={() => this.select_clip(clip.id)}
-              selected={clip.selected}
-              connected={clip.connected}
-              parameters={this.parameters}
-          />      
-        );
+        // extract the colors ids and put them in a map to be monitored
+        const colorids = Object.fromEntries(clips.map(clip => [ clip.colorid.id, clip.colorid ]));
 
         return (
-            <React.Fragment>
-                {colors}                   
-                <div className="grid">
-                  {clips}
-                </div>
-                {filtered_clips.length === 0 &&
-                  <div className="message">
-                    <h1>Assign the color to a clip in Arena / Avenue and it will be shown here.</h1>                  
-                  </div>
-                }
-            </React.Fragment>
-        );        
+            <ParameterMonitor parameters={colorids} render={colorids => {
+                return (
+                    <React.Fragment>
+                        <Colors
+                            set_color={(value) => this.set_active_color(value)}
+                            active_color={this.state.active_color}
+                            colorids={colorids}
+                        />
+
+                        <Clips
+                            active_color={this.state.active_color}
+                            clips={clips}
+                            colorids={colorids}
+                            clip_url={(id, last_update) => this.clip_url(id, last_update)}
+                            connect_clip={(id, down) => this.connect_clip(id, down)}
+                            select_clip={id => this.select_clip(id)}
+                        />
+                    </React.Fragment>
+                );
+            }} />
+        );
     }
 }
+
+/**
+ *  Declare the context type used
+ */
+Grid.contextType = ResolumeContext;
 
 /**
   * Property declaration for Grid component
