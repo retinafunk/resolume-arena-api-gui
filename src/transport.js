@@ -52,6 +52,11 @@ class Transport {
 
                 console.log('failed to connect, retrying in ' + this.reconnect_timeout + ' seconds');
 
+                // notify all listeners we are now disconnected
+                for (const callback of this.state_listeners) {
+                    callback(false);
+                }
+
                 // re-attempt connection after the timeout and increase timeout
                 this.reconnect_timer = setTimeout(this.open_websocket, this.reconnect_timeout * 1000);
                 this.reconnect_timeout *= 2;

@@ -24,6 +24,9 @@ function Monitor(props) {
 }
 
 const ParameterMonitor = {
+    /**
+     *  Monitor a single parameter
+     */
     Single: function({ parameter, render }) {
         const [ state, setState ] = useState(parameter);
 
@@ -35,6 +38,10 @@ const ParameterMonitor = {
         );
     },
 
+    /**
+     *  Monitor multiple parameters, given as a map of
+     *  parameter id => parameter.
+     */
     Multiple: function({ parameters, render }) {
         const [ state, setState ] = useState({});
 

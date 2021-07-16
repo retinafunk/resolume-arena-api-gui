@@ -3,9 +3,7 @@ import Clip from './clip.js'
 import './clips.css'
 
 
-function Clips(props) {
-    const { active_color, clips, colorids, clip_url, connect_clip, select_clip } = props;
-
+function Clips({ active_color, clips, colorids }) {
     // active_color === 1 means to show all clips
     const filtered_clips = clips.filter(
         clip => active_color === "1" || active_color === colorids[clip.colorid.id].value
@@ -16,10 +14,7 @@ function Clips(props) {
             id={clip.id}
             key={clip.id}
             name={clip.name}
-            src={clip_url(clip.id, clip.thumbnail.last_update)}
-            connect_down={() => connect_clip(clip.id, true)}
-            connect_up={() => connect_clip(clip.id, false)}
-            select={() => select_clip(clip.id)}
+            last_update={clip.thumbnail.last_update}
             selected={clip.selected}
             connected={clip.connected}
         />

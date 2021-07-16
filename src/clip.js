@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { ResolumeContext } from './resolume_provider.js'
 import PropTypes from 'prop-types';
 
@@ -6,66 +6,44 @@ import PropTypes from 'prop-types';
   * Component for rendering a clip, responds to clicks
   * to trigger the clip.
 */
-class Clip extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { selected: props.selected.value };
+function Clip(props) {
+    // get access to the resolume provider for triggering actions
+    const context = useContext(ResolumeContext);
 
-        // the handler function for updates to the
-        // selected property of a clip
-        this.on_update = (parameter) => {
-            // extract selection value
-            const selected = parameter.value;
-            // update state
-            this.setState({ selected });
-        };
-    }
+    // define select and connection functions
+    const select    = ()        => { context.action('trigger', `/composition/clips/by-id/${props.id}/select`);          }
+    const connect   = (down)    => { context.action('trigger', `/composition/clips/by-id/${props.id}/connect`, down);   };
 
-    componentDidMount() {
-        this.context.parameters.register_monitor(this.props.selected.id, this.on_update, this.props.selected);
-    }
+    /**
+      * Connected has 5 possible states 
+      * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
+      */
+    const connected = props.connected.index >= 3;
+    const name      = props.name.value.length > 23 ? props.name.value.substring(0,22) + "..." : props.name.value;
+    const src       = context.clip_url(props.id, props.last_update);
 
-    componentWillUnmount() {
-        this.context.parameters.unregister_monitor(this.props.selected.id, this.on_update);
-    }
-
-    render() {
-        /**
-          * Connected has 5 possible states 
-          * "Empty", "Disconnected", "Previewing", "Connected", "Connected & previewing"
-          */
-        const connected = this.props.connected.index >= 3;
-        const name = this.props.name.value.length > 23 ? this.props.name.value.substring(0,22) + "..." : this.props.name.value;
-        return (
-            <div>              
-              <div className={`clip ${connected ? 'connected' : ''}`}>
-                  <img className="thumbnail"
-                      src={this.props.src}
-                      onMouseDown={this.props.connect_down}
-                      onMouseUp={this.props.connect_up}
-                      alt={this.props.name.value}
-                  />                
-              </div>              
-              <div className={`handle ${this.props.selected.value ? 'selected' : ''}`} onMouseDown={this.props.select}>
+    return (
+        <div>              
+            <div className={`clip ${connected ? 'connected' : ''}`}>
+                <img className="thumbnail"
+                    src={src}
+                    onMouseDown={() => connect(true)}
+                    onMouseUp={() => connect(false)}
+                    alt={props.name.value}
+                />                
+            </div>              
+            <div className={`handle ${props.selected.value ? 'selected' : ''}`} onMouseDown={select}>
                 {name}
-              </div>                
             </div>
-            
-        )
-    }
+        </div>
+    )
 }
-
-/**
- *  Declare the context type used
- */
-Clip.contextType = ResolumeContext;
 
 /**
   * Property declaration for Clip component
   */
 Clip.propTypes = {
-    src: PropTypes.string.isRequired,
-    select: PropTypes.func.isRequired,
+    last_update: PropTypes.string.isRequired,
     name: PropTypes.object.isRequired,
     id: PropTypes.number.isRequired,
 }
