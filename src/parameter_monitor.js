@@ -23,39 +23,51 @@ function Monitor(props) {
     return (null);
 }
 
+const ParameterMonitor = {
+    Single: function({ parameter, render }) {
+        const [ state, setState ] = useState(parameter);
 
-function ParameterMonitor(props) {
-    const { parameters, render }    = props;
-    const [ state, setState ]       = useState({});
+        return (
+            <React.Fragment>
+                <Monitor parameter={parameter} onChange={setState} key={parameter.id} />
+                {render(state)}
+            </React.Fragment>
+        );
+    },
 
-    const onChange = parameter => {
-        setState(prevState => {
-            const update = { [parameter.id]: parameter };
-            return { ...prevState, ...update };
-        })
-    };
+    Multiple: function({ parameters, render }) {
+        const [ state, setState ] = useState({});
 
-    const monitored = Object.values(parameters).map(parameter => (
-        <Monitor parameter={parameter} onChange={onChange} key={parameter.id} />
-    ));
+        const onChange = parameter => {
+            setState(prevState => {
+                const update = { [parameter.id]: parameter };
+                return { ...prevState, ...update };
+            })
+        };
 
-    // merge parameters with updated state
-    // use spread syntax to ensure copies of the object
-    let merged = { ...parameters };
-    for (const id in state) {
-        const parameter = state[id];
+        const monitored = Object.values(parameters).map(parameter => (
+            <Monitor parameter={parameter} onChange={onChange} key={parameter.id} />
+        ));
 
-        if (parameter !== undefined) {
-            merged[id] = { ...parameter };
+        // merge parameters with updated state
+        // use spread syntax to ensure copies of the object
+        let merged = { ...parameters };
+        for (const id in state) {
+            const parameter = state[id];
+
+            if (parameter !== undefined) {
+                merged[id] = { ...parameter };
+            }
         }
-    }
 
-    return (
-        <React.Fragment key={merged}>
-            {monitored}
-            {render(merged)}
-        </React.Fragment>
-    );
-}
+        return (
+            <React.Fragment key={merged}>
+                {monitored}
+                {render(merged)}
+            </React.Fragment>
+        );
+    }
+};
+
 
 export default ParameterMonitor;

@@ -2,7 +2,7 @@ import { ResolumeContext } from './resolume_provider.js'
 import ParameterMonitor from './parameter_monitor.js'
 import Clips from './clips.js'
 import Colors from './colors.js'
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
 
 class Grid extends React.Component {
@@ -89,9 +89,16 @@ class Grid extends React.Component {
         const colorids = Object.fromEntries(clips.map(clip => [ clip.colorid.id, clip.colorid ]));
 
         return (
-            <ParameterMonitor parameters={colorids} render={colorids => {
+            <ParameterMonitor.Multiple parameters={colorids} render={colorids => {
                 return (
                     <React.Fragment>
+                        {this.context.composition.name &&
+                            <ParameterMonitor.Single parameter={this.context.composition.name} render={name => {
+                                useEffect(() => { document.title = `Resolume ${this.context.product.name} - ${name.value}`; });
+                                return (null);
+                            }} />
+                        }
+
                         <Colors
                             set_color={(value) => this.set_active_color(value)}
                             active_color={this.state.active_color}
