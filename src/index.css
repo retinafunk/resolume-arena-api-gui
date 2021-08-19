@@ -23,14 +23,28 @@ body {
     padding-top: 0.5em;
     font-size: 1em;
 }
+.handle:hover {
+    background-color: #50504f;
+}
 
 .selected {
     background-color: #A1FCD5;
     color: #1C1C1C;
 }
+.selected:hover {
+    background-color: #A1FCD5;
+}
 
 .connected {
     outline: 4px solid #A1FCD5;
+    outline-offset: -4px;
+}
+.connected:hover {
+    outline: 4px solid #A1FCD5;
+}
+
+.none:hover {
+    outline: 4px solid #50504f;
     outline-offset: -4px;
 }
 

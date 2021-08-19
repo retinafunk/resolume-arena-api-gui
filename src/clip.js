@@ -24,7 +24,7 @@ function Clip(props) {
 
     return (
         <div>              
-            <div className={`clip ${connected ? 'connected' : ''}`}>
+            <div className={`clip ${connected ? 'connected' : 'none'}`}>
                 <img className="thumbnail"
                     src={src}
                     onMouseDown={() => connect(true)}
