@@ -16,7 +16,10 @@ function Colors({ colorids, active_color, set_color }) {
     /* Count colors that match the different color filter options */
     for (const colorid of Object.values(colorids)) {
         color_filters["0"].count++;
-        color_filters[colorid.value].count++;
+
+        if (colorid.value !== "1") {
+            color_filters[colorid.value - 1].count++;
+        }
     }
 
     const colors = color_filters.map((color) =>
