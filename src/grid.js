@@ -6,7 +6,7 @@ import React, { useState, useEffect, useContext } from 'react'
 
 function Grid() {
     const context                               = useContext(ResolumeContext);
-    const [ active_color, set_active_color ]    = useState("1");
+    const [ active_color, set_active_color ]    = useState(0);
 
     /**
      *  Extract all the clips from the layers and filter them

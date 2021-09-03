@@ -8,18 +8,16 @@ function Colors({ colorids, active_color, set_color }) {
     let color_filters = [];
     for (let i=0;i<6;++i) {
         color_filters[i] = {
-            id: String(i+1),
+            id: i,
             count: 0
         };
     }
 
     /* Count colors that match the different color filter options */
     for (const colorid of Object.values(colorids)) {
-        color_filters["0"].count++;
-
-        if (colorid.value !== "1") {
-            color_filters[colorid.value - 1].count++;
-        }
+        color_filters[0].count++;
+        if (colorid.index !== 0)
+            color_filters[String(colorid.index)].count++;
     }
 
     const colors = color_filters.map((color) =>

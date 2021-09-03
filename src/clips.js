@@ -6,7 +6,7 @@ import './clips.css'
 function Clips({ active_color, clips, colorids }) {
     // active_color === 1 means to show all clips
     const filtered_clips = clips.filter(
-        clip => active_color === "1" || active_color === colorids[clip.colorid.id].value
+        clip => active_color === 0 || active_color === colorids[clip.colorid.id].index
     );
 
     const output = filtered_clips.map((clip) =>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 function Color({ id, count, select, selected }) {
-    const cln = "clr" + id;
+    const cln = "clr" + String(id+1);
     const idn = selected ? "filter-selected" : "filter-unselected";
 
     return (
