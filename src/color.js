@@ -21,7 +21,7 @@ function Color({ id, count, select, selected }) {
   * Property declaration for Color component
   */
 Color.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
     select: PropTypes.func.isRequired,
     selected: PropTypes.bool.isRequired,

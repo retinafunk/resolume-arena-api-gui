@@ -45,7 +45,7 @@ function Colors({ colorids, active_color, set_color }) {
   * Property declaration for Colors component
   */
 Colors.propTypes = {
-    active_color: PropTypes.string.isRequired,
+    active_color: PropTypes.number.isRequired,
     set_color: PropTypes.func.isRequired,
     colorids: PropTypes.object.isRequired,
 }
