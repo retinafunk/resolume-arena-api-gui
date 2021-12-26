@@ -1,8 +1,8 @@
 .clips {
-    margin: 2em;
+/*     margin: 2em;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 0.25fr));
     grid-column-gap: 1.5em;
-    grid-row-gap: 2em;
+    grid-row-gap: 2em; */
 }
 

@@ -23,8 +23,8 @@ function Clip(props) {
     const src       = context.clip_url(props.id, props.last_update);
 
     return (
-        <div>              
-            <div className={`clip ${connected ? 'connected' : 'none'}`}>
+        <div className="border border-red-700  border-dashed w-screen snap-center">
+            <div className={`clip ${connected ? 'connected' : 'none'} w-screen `}>
                 <img className="thumbnail"
                     src={src}
                     onMouseDown={() => connect(true)}

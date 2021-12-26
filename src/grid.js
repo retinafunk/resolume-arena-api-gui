@@ -21,6 +21,13 @@ function Grid() {
     // extract the colors ids and put them in a map to be monitored
     const colorids = Object.fromEntries(clips.map(clip => [ clip.colorid.id, clip.colorid ]));
 
+    const layersWithClips = context.composition.layers.map(layer=>{
+       // console.log('layer',layer);
+        return layer.clips.filter(clip => clip.connected.index !== 0);
+    });
+
+    console.log('layersWithClips',layersWithClips);
+
     return (
         <ParameterMonitor.Multiple parameters={colorids} render={colorids => {
             return (
@@ -37,12 +44,17 @@ function Grid() {
                         active_color={active_color}
                         colorids={colorids}
                     />
+                    {
+                        layersWithClips.map(
+                            (layer,index) =>                     <Clips key={`layer-${index}`}
+                                active_color={active_color}
+                                clips={layer}
+                                colorids={colorids}
+                                layerIndex={index+1}
+                            />
+                        )
+                    }
 
-                    <Clips
-                        active_color={active_color}
-                        clips={clips}
-                        colorids={colorids}
-                    />
                 </React.Fragment>
             );
         }} />
