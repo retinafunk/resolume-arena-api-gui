@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="%PUBLIC_URL%/favicon.ico" rel="shortcut icon">
     <!--
       Notice the use of %PUBLIC_URL% in the tag above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -14,22 +14,45 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Resolume - Triggered</title>
-  </head>
-  <body>
-    <div id="grid"></div>
-    <div id="controls">
-        <div id="composition"></div>
-        <div id="effects"></div>
-    </div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <script type="tailwind-config">
+{
+    theme: {
+        extend: {
+            colors: {
+                'dark-blue-800': '#0A214C',
+                'hulk-800': '#3D42F5',
+            }
+        }
+    }
+}
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    </script>
+  <style type="postcss">
+    ::selection {
+      @apply bg-pink-500;
+    }
 
-      To begin the development, run `npm start`.
-      To create a production bundle, use `npm run build`.
-    -->
-  </body>
+    .custom-class {
+      @apply border bg-gray-100 p-4
+    }
+  </style>
+</head>
+<body>
+<div id="grid" class="h-screen"></div>
+<div id="controls">
+    <div id="composition"></div>
+    <div id="effects"></div>
+</div>
+<!--
+  This HTML file is a template.
+  If you open it directly in the browser, you will see an empty page.
+
+  You can add webfonts, meta tags, or analytics to this file.
+  The build step will place the bundled scripts into the <body> tag.
+
+  To begin the development, run `npm start`.
+  To create a production bundle, use `npm run build`.
+-->
+</body>
 </html>
