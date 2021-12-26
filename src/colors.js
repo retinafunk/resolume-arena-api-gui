@@ -31,7 +31,7 @@ function Colors({ colorids, active_color, set_color }) {
     );
 
     return (
-        <div>              
+        <div className="fixed w-full">
           <div className="colors">
             <div className="filter-container">
                 {colors}
